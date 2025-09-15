@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今日のToDoリスト</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>今日のToDoリスト 📝</h1>
+
+        <form action="{{ url_for('add_todo') }}" method="post" class="add-form">
+            <input type="text" name="task" placeholder="新しい予定を追加" required>
+            <button type="submit">追加</button>
+        </form>
+
+        <ul class="todo-list">
+            {% for todo in todos %}
+            <li class="todo-item {% if todo.status == '完了' %}completed{% endif %}">
+                <span class="task-text">{{ todo.task }}</span>
+                <div class="buttons">
+                    <form action="{{ url_for('update_todo', id=todo.id) }}" method="post" style="display: inline;">
+                        <button type="submit" class="update-btn">
+                            {% if todo.status == '完了' %}
+                                未完了に戻す
+                            {% else %}
+                                完了にする
+                            {% endif %}
+                        </button>
+                    </form>
+                    <form action="{{ url_for('delete_todo', id=todo.id) }}" method="post" style="display: inline;">
+                        <button type="submit" class="delete-btn">削除</button>
+                    </form>
+                </div>
+            </li>
+            {% else %}
+            <li>今日の予定はまだありません。</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
