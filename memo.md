@@ -16,3 +16,18 @@ set FLASK_APP=flaskr
 これは、「アプリケーションは flaskr という名前のパッケージの中にあるよ」と設定しています。
 
 flask run
+
+初期
+flaskrの上の階層
+rm -rf venv
+python3 -m venv venv
+source venv/bin/activate
+pip install Flask
+python3 -c "from flaskr import db; db.create_todos_table()"
+export FLASK_APP=flaskr
+flask run
+
+2回目以降
+source venv/bin/activate
+export FLASK_APP=flaskr
+flask run
