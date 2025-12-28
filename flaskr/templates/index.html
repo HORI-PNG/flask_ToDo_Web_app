@@ -24,7 +24,9 @@
             {% for todo in todos %}
             <li class="todo-item {% if todo.status == '完了' %}completed{% endif %}">
                 <span class="task-text">{{ todo.task }}</span>
-                <span class="priority-badge" style="margin-left: 10px; font-size: 0.8em; color: #666;">
+                <span class="priority-badge 
+                    {% if todo.priority == '高' %}priority-high{% elif todo.priority == '低' %}priority-low{% endif %}" 
+                    style="margin-left: 10px; font-size: 0.8em;">
                     [{{ todo.priority }}]
                 </span>
                 <div class="buttons">
