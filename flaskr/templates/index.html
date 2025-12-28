@@ -13,12 +13,20 @@
         <form action="{{ url_for('add_todo') }}" method="post" class="add-form">
             <input type="text" name="task" placeholder="新しい予定を追加" required>
             <button type="submit">追加</button>
+            <select name="priority">
+                <option value="高">高</option>
+                <option value="中" selected>中</option>
+                <option value="低">低</option>
+            </select>
         </form>
 
         <ul class="todo-list">
             {% for todo in todos %}
             <li class="todo-item {% if todo.status == '完了' %}completed{% endif %}">
                 <span class="task-text">{{ todo.task }}</span>
+                <span class="priority-badge" style="margin-left: 10px; font-size: 0.8em; color: #666;">
+                    [{{ todo.priority }}]
+                </span>
                 <div class="buttons">
                     <form action="{{ url_for('update_todo', id=todo.id) }}" method="post" style="display: inline;">
                         <button type="submit" class="update-btn">

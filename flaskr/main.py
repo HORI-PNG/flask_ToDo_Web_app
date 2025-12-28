@@ -17,8 +17,9 @@ def index():
 @app.route('/add', methods=['POST'])
 def add_todo():
     task = request.form['task'] # フォームからタスク内容を取得
+    priority = request.form.get('priority', '中') # フォームから優先度を取得、デフォルトは'中'
     conn = sqlite3.connect(DATABASE)
-    conn.execute("INSERT INTO todos (task) VALUES (?)", (task,))
+    conn.execute("INSERT INTO todos (task, priority) VALUES (?, ?)", (task, priority))
     conn.commit()
     conn.close()
     return redirect(url_for('index')) # トップページにリダイレクト
